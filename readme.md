@@ -22,8 +22,7 @@ Installation
 ----------------
 
 1. Download the [zip file](https://github.com/chrisguitarguy/SEO-Auto-Linker/zipball/0.4)
-2a. Unzip and upload the `seo-auto-linker` folder to your `wp-content/plugins` directory
-2b. Install the plugin directly from the zip folder via the upload feature in the new plugin area
+2. Unzip and upload the `seo-auto-linker` folder to your `wp-content/plugins` directory OR Install the plugin directly from the zip folder via the upload feature in the new plugin area
 3. In the WordPress admin area, click "Plugins" on the menu and activate SEO Auto Linker
 4. Set up your keywords and sit back!
 
