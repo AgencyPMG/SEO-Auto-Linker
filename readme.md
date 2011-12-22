@@ -42,6 +42,7 @@ Changelog
 ----------------
 
 **0.4**
+
 * Removed caching due to issues with content not showing up
 
 **0.3**
