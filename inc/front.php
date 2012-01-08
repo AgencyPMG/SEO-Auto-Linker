@@ -17,7 +17,7 @@ class pmgSeoAutoLinkerFront
 		if( empty( $kws ) ) return $content;
 		
 		// Find all of our <h> tags in the content and replace them with something
-		preg_match_all( '/<h[1-6]>.+?<\/h[1-6]>/i', $content, $headers );
+		preg_match_all( '/<h[1-6][^>]*>.+?<\/h[1-6]>/i', $content, $headers );
 		if( $headers[0] )
 		{
 			$headers_replacements = array();
@@ -65,7 +65,7 @@ class pmgSeoAutoLinkerFront
 			$filtered_content = str_replace( array_values( $other_replacements ), array_keys( $other_replacements ), $filtered_content );
 		}
 		
-		
+		$permalink = get_permalink( $post );
 		foreach( $kws as $index => $kw )
 		{
 			$nope = isset( $opts['types'][$index] ) && $post->post_type != $opts['types'][$index] ? true : false;
@@ -73,6 +73,7 @@ class pmgSeoAutoLinkerFront
 			
 			$url = isset( $opts['url'][$index] ) ? $opts['url'][$index] : false;
 			if( ! $url ) continue;
+            if( $url == $permalink ) continue;
 			
 			$max = isset( $opts['max'][$index] ) ? $opts['max'][$index] : 1;
 			

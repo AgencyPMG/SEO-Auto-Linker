@@ -37,9 +37,22 @@ Sort of.  If you keyword list is `lorem, ipsum`, the word `lorem` OR the word `i
 
 If you add hundreds of keywords, the answer is probably yes.
 
+**This is breaking my HTML! What gives?**
+
+In order to keep things simple, SEO Auto Linker searches for some common elements in your HTML (headings, images, inputs, etc) and removes them before adding links, adding them back later. It can't predict every bit of HTML, unfortunately, so sometimes text in attributes or other text gets linked where it shouldn't.
+
+**Does this automatically link custom fields too?**
+
+Nope. Because custom fields (aka post meta) can be used for so many different things, it doesn't make sense to automatically link that content. If that's something you want to happen, it can be done.
+
 
 Changelog
 ----------------
+
+**0.5**
+
+* Headers with attributes now get caught by the regular expression to prevent linking within them
+* Posts can no longer link to themselves
 
 **0.4**
 
@@ -55,6 +68,7 @@ Changelog
 * Fixed the post type selection for each keyword set
 
 **0.1**
+
 * The very first version.
 * Support for automatic linking added
 
