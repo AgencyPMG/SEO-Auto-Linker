@@ -13,6 +13,13 @@ class pmgSeoAutoLinkerFront
 		
 		// set up some more options
 		$opts = get_option( 'pmg_autolinker_options' );
+		
+		$permalink = get_permalink( $post );
+		$site_wide_exclude_urls = explode(',', $opts['site_wide_blacklist']);
+		if(in_array($permalink, $site_wide_exclude_urls)) {
+			return $content;
+		}
+		
 		$kws = isset( $opts['kw'] ) ? (array) $opts['kw'] : array();
 		if( empty( $kws ) ) return $content;
 		
@@ -65,9 +72,12 @@ class pmgSeoAutoLinkerFront
 			$filtered_content = str_replace( array_values( $other_replacements ), array_keys( $other_replacements ), $filtered_content );
 		}
 		
-		$permalink = get_permalink( $post );
 		foreach( $kws as $index => $kw )
 		{
+			$exclude_urls = explode(',', $opts['blacklist'][$index]);
+			if(in_array($permalink, $exclude_urls)) {
+				continue;
+			}
 			$nope = isset( $opts['types'][$index] ) && $post->post_type != $opts['types'][$index] ? true : false;
 			if( $nope ) continue;
 			

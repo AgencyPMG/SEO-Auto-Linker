@@ -49,6 +49,10 @@ Nope. Because custom fields (aka post meta) can be used for so many different th
 Changelog
 ----------------
 
+**0.6**
+
+* Added feature to blacklist URL's by keyword level, or site wide level
+
 **0.5**
 
 * Headers with attributes now get caught by the regular expression to prevent linking within them
