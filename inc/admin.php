@@ -26,6 +26,9 @@ class pmgSeoAutoLinkerAdmin
 		$urls = isset( $opts['url'] ) ? $opts['url'] : array();
 		$max_links = isset( $opts['max'] ) ? $opts['max'] : array();
 		$types = isset( $opts['types'] ) ? $opts['types'] : array();
+		$blacklist = isset( $opts['blacklist'] ) ? $opts['blacklist'] : array();
+		
+		$site_wide_blacklist = isset( $opts['site_wide_blacklist'] ) ? $opts['site_wide_blacklist'] : '';
 		?>
 		<div class="wrap">
 			<?php screen_icon( 'tools' ); ?>
@@ -61,6 +64,8 @@ class pmgSeoAutoLinkerAdmin
 								<td>
 									<label for="pmg-linksto-<?php echo $index; ?>"><?php _e( 'Link to...' ); ?></label>
 									<input type="text" name="<?php echo $this->setting; ?>[url][<?php echo $index; ?>]" id="pmg-linksto-<?php echo $index; ?>" class="pmg-link-text" value="<?php echo $this->get_value( $index, $urls ); ?>" />
+									<label for="pgm-blacklist-<?php echo $index; ?>"><?php _e( 'Comma Separated Blacklist URLs...' ); ?></label>
+									<textarea id="pgm-blacklist-<?php echo $index; ?>" name="<?php echo $this->setting; ?>[blacklist][<?php echo $index; ?>]"><?php echo $this->get_value( $index, $blacklist ); ?></textarea>
 								</td>
 								
 								<td>
@@ -74,7 +79,7 @@ class pmgSeoAutoLinkerAdmin
 									<?php _e( ' times on each...' ); ?>
 								</td>
 								<td>
-									<select name="<?php echo $this->setting; ?>[types][]">
+									<select name="<?php echo $this->setting; ?>[types][<?php echo $index; ?>]">
 										<?php
 											foreach( get_post_types() as $type )
 											{
@@ -100,6 +105,8 @@ class pmgSeoAutoLinkerAdmin
 							<td>
 								<label for="pmg-linksto"><?php _e( 'Link to...' ); ?></label>
 								<input type="text" name="<?php echo $this->setting; ?>[url][]" id="pmg-linksto" class="pmg-link-text" />
+								<label for="pgm-blacklist"><?php _e( 'Comma Separated Blacklist URLs…' ); ?></label>
+									<textarea id="pgm-blacklist" name="<?php echo $this->setting; ?>[blacklist][]"></textarea>
 							</td>
 							<td>
 								<?php _e( 'Up to ' ); ?>
@@ -133,6 +140,24 @@ class pmgSeoAutoLinkerAdmin
 						</th>
 					</tfoot>
 				</table>
+				<table id="site-wide-blacklist" class="widefat">
+					<thead>
+						<tr>
+							<th>
+								<?php _e( 'Site Wide Comma Separated Blacklist URLs...' ); ?>
+							</th>
+						</tr>
+					</thead>
+					
+					<tbody id="blacklist-body">
+						<tr class="links-entry">
+							<td>
+								<textarea id="pgm-site-wide-blacklist" name="<?php echo $this->setting; ?>[site_wide_blacklist]"><?php echo esc_attr($site_wide_blacklist); ?></textarea>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				
 				<p>
 					<input type="submit" class="button-primary" value="<?php _e( 'Save Settings' ); ?>" />
 				</p>
@@ -149,6 +174,7 @@ class pmgSeoAutoLinkerAdmin
 	function clean_settings( $in )
 	{
 		$out = array();
+		$out['site_wide_blacklist'] = esc_attr($in['site_wide_blacklist']);
 		if( isset( $in['kw'] ) ):
 			foreach( $in['kw'] as $index => $kw )
 			{
@@ -157,6 +183,7 @@ class pmgSeoAutoLinkerAdmin
 				$out['url'][$index] = isset( $in['url'][$index] ) && $in['url'][$index] ? esc_url( $in['url'][$index] ) : esc_url( home_url() );
 				$out['max'][$index] = isset( $in['max'][$index] ) ? absint( $in['max'][$index] ) : 1;
 				$out['types'][$index] = isset( $in['types'][$index] ) ? esc_attr( $in['types'][$index] ) : 'post';
+				$out['blacklist'][$index] = esc_attr( $in['blacklist'][$index] );
 			}
 		endif;
 		return $out;
