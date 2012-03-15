@@ -50,7 +50,7 @@ class pmgSeoAutoLinkerFront
         $sc_counter = 0;
         $sc_replacements = array();
         $sc_regex = get_shortcode_regex();
-        preg_match_all( '/' . $sc_regex . '/iu', $filtered_content, $shortcodes );
+        preg_match_all( '/' . $sc_regex . '/', $filtered_content, $shortcodes );
         if( ! empty( $shortcodes[0] )  )
         {
             foreach( $shortcodes[0] as $sc )
