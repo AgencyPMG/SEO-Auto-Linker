@@ -26,11 +26,11 @@ class pmgSeoAutoLinkerFront
         if( empty( $kws ) ) return $content;
         
         // Find all of our <h> tags in the content and replace them with something
+        $counter = 0;
+        $headers_replacements = array();
         preg_match_all( '/<h[1-6][^>]*>.+?<\/h[1-6]>/iu', $content, $headers );
-        if( $headers[0] )
+        if( ! empty( $headers[0] ) )
         {
-            $headers_replacements = array();
-            $counter = 0;
             foreach( $headers[0] as $h )
             {
                 $headers_replacements["<!--seo-auto-links-header-{$counter}--!>"] = $h;
@@ -50,11 +50,7 @@ class pmgSeoAutoLinkerFront
         $sc_counter = 0;
         $sc_replacements = array();
         $sc_regex = get_shortcode_regex();
-        preg_match_all( 
-            '/' . $sc_regex . '/iu',
-            $filtered_content,
-            $shortcodes
-        );
+        preg_match_all( '/' . $sc_regex . '/iu', $filtered_content, $shortcodes );
         if( ! empty( $shortcodes[0] )  )
         {
             foreach( $shortcodes[0] as $sc )
@@ -74,7 +70,7 @@ class pmgSeoAutoLinkerFront
         $other_counter = 0;
         $other_replacements = array();
         preg_match_all( '/<(img|input)(.*?) \/?>/iu', $filtered_content, $others );
-        if( $others[0] )
+        if( ! empty( $others[0] ) )
         {
             foreach( $others[0] as $i )
             {
@@ -106,7 +102,7 @@ class pmgSeoAutoLinkerFront
             
             // Find all the links in the content so we don't overwrite them or get weird stuff
             preg_match_all( '/<a(.*?)href="(.*?)"(.*?)>(.*?)<\/a>/iu', $filtered_content, $links );
-            if( $links[0] )
+            if( ! empty( $links[0] ) )
             {
                 $temp_links = array();
                 foreach( $links[0] as $l )
@@ -136,7 +132,7 @@ class pmgSeoAutoLinkerFront
         }
         
         // Put the original <h> tags back in
-        if( $headers[0] )
+        if( empty(  $headers_replacements ) )
         {
             $filtered_content = str_replace(
                 array_keys( $headers_replacements ),
@@ -165,7 +161,7 @@ class pmgSeoAutoLinkerFront
         }
         
         // Put other stuff back in
-        if( $others[0] )
+        if( empty( $others_replacements ) )
         {
             $filtered_content = str_replace(
                 array_keys( $other_replacements ),
