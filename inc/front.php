@@ -15,8 +15,10 @@ class pmgSeoAutoLinkerFront
         $opts = get_option( 'pmg_autolinker_options' );
         
         $permalink = get_permalink( $post );
-        $site_wide_exclude_urls = explode(',', $opts['site_wide_blacklist']);
-        if(in_array($permalink, $site_wide_exclude_urls)) {
+        $site_wide_exclude_urls = isset( $opts['site_wide_blackist'] ) ?
+                        explode( ',', $opts['site_wide_blacklist'] ) : array();
+        if( in_array( $permalink, $site_wide_exclude_urls ) )
+        {
             return $content;
         }
         
@@ -45,7 +47,7 @@ class pmgSeoAutoLinkerFront
         // We'll use the links_counter and links_replacements variables later on too
         $link_counter = 0;
         $links_replacements = array();
-        preg_match_all( '/<a(.*?)href="(.*?)"(.*?)>(.*?)<\/a>/i', $filtered_content, $first_links );
+        preg_match_all( '/<a(.*?)href="(.*?)"(.*?)>(.*?)<\/a>/iu', $filtered_content, $first_links );
         if( $first_links[0] )
         {
             $temp_links = array();
@@ -74,16 +76,15 @@ class pmgSeoAutoLinkerFront
         
         foreach( $kws as $index => $kw )
         {
-            $exclude_urls = explode(',', $opts['blacklist'][$index]);
-            if(in_array($permalink, $exclude_urls)) {
-                continue;
-            }
+            $exclude_urls = isset( $opts['blacklist'][$index] ) ? 
+                            explode(',', $opts['blacklist'][$index]) : array();
+            if( in_array( $permalink, $exclude_urls ) ) continue;
+
             $nope = isset( $opts['types'][$index] ) && $post->post_type != $opts['types'][$index] ? true : false;
             if( $nope ) continue;
             
             $url = isset( $opts['url'][$index] ) ? $opts['url'][$index] : false;
-            if( ! $url ) continue;
-            if( $url == $permalink ) continue;
+            if( ! $url || $url == $permalink ) continue;
             
             $max = isset( $opts['max'][$index] ) ? $opts['max'][$index] : 1;
             

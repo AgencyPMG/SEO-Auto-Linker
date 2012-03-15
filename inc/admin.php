@@ -64,6 +64,7 @@ class pmgSeoAutoLinkerAdmin
                                 <td>
                                     <label for="pmg-linksto-<?php echo $index; ?>"><?php _e( 'Link to...' ); ?></label>
                                     <input type="text" name="<?php echo $this->setting; ?>[url][<?php echo $index; ?>]" id="pmg-linksto-<?php echo $index; ?>" class="pmg-link-text" value="<?php echo $this->get_value( $index, $urls ); ?>" />
+                                    <br clear="both" />
                                     <label for="pgm-blacklist-<?php echo $index; ?>"><?php _e( 'Comma Separated Blacklist URLs...' ); ?></label>
                                     <textarea id="pgm-blacklist-<?php echo $index; ?>" name="<?php echo $this->setting; ?>[blacklist][<?php echo $index; ?>]"><?php echo $this->get_value( $index, $blacklist ); ?></textarea>
                                 </td>
