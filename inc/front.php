@@ -46,33 +46,31 @@ class pmgSeoAutoLinkerFront
         {
             $filtered_content = $content;
         }
-        
-        // Find all links currently in the content
-        // We'll use the links_counter and links_replacements variables later on too
-        $link_counter = 0;
-        $links_replacements = array();
+
+        $sc_counter = 0;
+        $sc_replacements = array();
+        $sc_regex = get_shortcode_regex();
         preg_match_all( 
-            '/<a(.*?)href="(.*?)"(.*?)>(.*?)<\/a>/iu',
+            '/' . $sc_regex . '/iu',
             $filtered_content,
-            $first_links
+            $shortcodes
         );
-        if( $first_links[0] )
+        if( ! empty( $shortcodes[0] )  )
         {
-            $temp_links = array();
-            foreach( $first_links[0] as $l )
+            foreach( $shortcodes[0] as $sc )
             {
-                $temp_links["<!--seo-auto-links-link-{$link_counter}-->"] = $l;
-                $link_counter++;
+                $sc_replacements["<!--seo-auto-links-sc-{$sc_counter}-->"]= $sc;
+                $sc_counter++;
             }
             $filtered_content = str_replace(
-                array_values( $temp_links ),
-                array_keys( $temp_links ), 
+                array_values( $sc_replacements ),
+                array_keys( $sc_replacements ),
                 $filtered_content
             );
-            $links_replacements = array_merge( $links_replacements, $temp_links );
         }
         
-        // strip out images, form fields, and anythign else that might have text we shouldn't over right
+        // Strip out out images, inputs and stuff which may have text
+        // text we shouldn't overwrite
         $other_counter = 0;
         $other_replacements = array();
         preg_match_all( '/<(img|input)(.*?) \/?>/iu', $filtered_content, $others );
@@ -89,7 +87,9 @@ class pmgSeoAutoLinkerFront
                 $filtered_content 
             );
         }
-        
+
+        $link_counter = 0;
+        $links_replacements = array();
         foreach( $kws as $index => $kw )
         {
             $exclude_urls = isset( $opts['blacklist'][$index] ) ? 
@@ -154,7 +154,17 @@ class pmgSeoAutoLinkerFront
                 $filtered_content
             );
         }
+
+        if( ! empty( $sc_replacements ) )
+        {
+            $filtered_content = str_replace(
+                array_keys( $sc_replacements ),
+                array_values( $sc_replacements ),
+                $filtered_content
+            );
+        }
         
+        // Put other stuff back in
         if( $others[0] )
         {
             $filtered_content = str_replace(

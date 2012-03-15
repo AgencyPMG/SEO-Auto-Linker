@@ -50,8 +50,10 @@ Changelog
 ----------------
 
 **0.6**
-
+* Switched regex to unicode
 * Added feature to blacklist URL's by keyword level, or site wide level
+* Content in shortcodes is immune to replaces (eg. image captions, etc)
+
 
 **0.5**
 
