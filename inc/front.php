@@ -36,7 +36,11 @@ class pmgSeoAutoLinkerFront
                 $headers_replacements["<!--seo-auto-links-header-{$counter}--!>"] = $h;
                 $counter++;
             }
-            $filtered_content = str_replace( array_values( $headers_replacements ), array_keys( $headers_replacements ), $content );
+            $filtered_content = str_replace(
+                array_values( $headers_replacements ),
+                array_keys( $headers_replacements ),
+                $content
+            );
         }
         else
         {
@@ -47,7 +51,11 @@ class pmgSeoAutoLinkerFront
         // We'll use the links_counter and links_replacements variables later on too
         $link_counter = 0;
         $links_replacements = array();
-        preg_match_all( '/<a(.*?)href="(.*?)"(.*?)>(.*?)<\/a>/iu', $filtered_content, $first_links );
+        preg_match_all( 
+            '/<a(.*?)href="(.*?)"(.*?)>(.*?)<\/a>/iu',
+            $filtered_content,
+            $first_links
+        );
         if( $first_links[0] )
         {
             $temp_links = array();
@@ -56,7 +64,11 @@ class pmgSeoAutoLinkerFront
                 $temp_links["<!--seo-auto-links-link-{$link_counter}-->"] = $l;
                 $link_counter++;
             }
-            $filtered_content = str_replace( array_values( $temp_links ), array_keys( $temp_links ), $filtered_content );
+            $filtered_content = str_replace(
+                array_values( $temp_links ),
+                array_keys( $temp_links ), 
+                $filtered_content
+            );
             $links_replacements = array_merge( $links_replacements, $temp_links );
         }
         
@@ -71,7 +83,11 @@ class pmgSeoAutoLinkerFront
                 $other_replacements["<!--seo-auto-links-others-{$other_counter}-->"] = $i;
                 $other_counter++;
             }
-            $filtered_content = str_replace( array_values( $other_replacements ), array_keys( $other_replacements ), $filtered_content );
+            $filtered_content = str_replace(
+                array_values( $other_replacements ),
+                array_keys( $other_replacements ), 
+                $filtered_content 
+            );
         }
         
         foreach( $kws as $index => $kw )
@@ -98,33 +114,61 @@ class pmgSeoAutoLinkerFront
                     $temp_links["<!--seo-auto-links-link-{$link_counter}--!>"] = $l;
                     $link_counter++;
                 }
-                $filtered_content = str_replace( array_values( $temp_links ), array_keys( $temp_links ), $filtered_content );
+                $filtered_content = str_replace( 
+                    array_values( $temp_links ),
+                    array_keys( $temp_links ),
+                    $filtered_content
+                );
                 $links_replacements = array_merge( $links_replacements, $temp_links );
             }
             
             // Finally! add our links via preg_replace
-            $regex = implode( '|', array_map( 'esc_attr', array_map( 'trim', explode( ',', $kw ) ) ) );
-            $filtered_content = preg_replace( '/(\b)(' . $regex . ')(\b)/i', '$1<a href="' . esc_url( $url ) . '" title="$2">$2</a>$3', $filtered_content, absint( $max ) );
+            $regex = implode( 
+                '|', 
+                array_map( 'esc_attr', array_map( 'trim', explode( ',', $kw ) ) )
+            );
+            $filtered_content = preg_replace( 
+                '/(\b)(' . $regex . ')(\b)/i',
+                '$1<a href="' . esc_url( $url ) . '" title="$2">$2</a>$3',
+                $filtered_content,
+                absint( $max )
+            );
         }
         
         // Put the original <h> tags back in
         if( $headers[0] )
         {
-            $filtered_content = str_replace( array_keys( $headers_replacements ), array_values( $headers_replacements ), $filtered_content );
+            $filtered_content = str_replace(
+                array_keys( $headers_replacements ),
+                array_values( $headers_replacements ),
+                $filtered_content
+            );
         }
         
         // Put links back in
         if( ! empty( $links_replacements ) )
         {
-            $filtered_content = str_replace( array_keys( $links_replacements ), array_values( $links_replacements ), $filtered_content );
+            $filtered_content = str_replace(
+                array_keys( $links_replacements ),
+                array_values( $links_replacements ), 
+                $filtered_content
+            );
         }
         
         if( $others[0] )
         {
-            $filtered_content = str_replace( array_keys( $other_replacements ), array_values( $other_replacements ), $filtered_content );
+            $filtered_content = str_replace(
+                array_keys( $other_replacements ),
+                array_values( $other_replacements ),
+                $filtered_content
+            );
         }
         
-        $filtered_content = apply_filters( 'pmg_seo_auto_linker_content', $filtered_content, $content );
+        $filtered_content = apply_filters(
+            'pmg_seo_auto_linker_content',
+            $filtered_content,
+            $content
+        );
         
         return $filtered_content;
     }
