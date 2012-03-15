@@ -26,7 +26,7 @@ class pmgSeoAutoLinkerFront
         if( empty( $kws ) ) return $content;
         
         // Find all of our <h> tags in the content and replace them with something
-        preg_match_all( '/<h[1-6][^>]*>.+?<\/h[1-6]>/i', $content, $headers );
+        preg_match_all( '/<h[1-6][^>]*>.+?<\/h[1-6]>/iu', $content, $headers );
         if( $headers[0] )
         {
             $headers_replacements = array();
@@ -75,7 +75,7 @@ class pmgSeoAutoLinkerFront
         // strip out images, form fields, and anythign else that might have text we shouldn't over right
         $other_counter = 0;
         $other_replacements = array();
-        preg_match_all( '/<(img|input)(.*?) \/?>/i', $filtered_content, $others );
+        preg_match_all( '/<(img|input)(.*?) \/?>/iu', $filtered_content, $others );
         if( $others[0] )
         {
             foreach( $others[0] as $i )
@@ -105,7 +105,7 @@ class pmgSeoAutoLinkerFront
             $max = isset( $opts['max'][$index] ) ? $opts['max'][$index] : 1;
             
             // Find all the links in the content so we don't overwrite them or get weird stuff
-            preg_match_all( '/<a(.*?)href="(.*?)"(.*?)>(.*?)<\/a>/', $filtered_content, $links );
+            preg_match_all( '/<a(.*?)href="(.*?)"(.*?)>(.*?)<\/a>/iu', $filtered_content, $links );
             if( $links[0] )
             {
                 $temp_links = array();
@@ -128,7 +128,7 @@ class pmgSeoAutoLinkerFront
                 array_map( 'esc_attr', array_map( 'trim', explode( ',', $kw ) ) )
             );
             $filtered_content = preg_replace( 
-                '/(\b)(' . $regex . ')(\b)/i',
+                '/(\b)(' . $regex . ')(\b)/iu',
                 '$1<a href="' . esc_url( $url ) . '" title="$2">$2</a>$3',
                 $filtered_content,
                 absint( $max )
