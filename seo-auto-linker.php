@@ -13,9 +13,9 @@ define( 'SEOAL_URL', plugin_dir_url( __FILE__ ) );
 
 if( is_admin() )
 {
-	require_once( SEOAL_PATH . 'inc/admin.php' );
+    require_once( SEOAL_PATH . 'inc/admin.php' );
 }
 else
 {
-	require_once( SEOAL_PATH . 'inc/front.php' );
+    require_once( SEOAL_PATH . 'inc/front.php' );
 }
