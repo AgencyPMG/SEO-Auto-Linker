@@ -132,7 +132,7 @@ class pmgSeoAutoLinkerFront
         }
         
         // Put the original <h> tags back in
-        if( empty(  $headers_replacements ) )
+        if( ! empty( $headers_replacements ) )
         {
             $filtered_content = str_replace(
                 array_keys( $headers_replacements ),
@@ -161,7 +161,7 @@ class pmgSeoAutoLinkerFront
         }
         
         // Put other stuff back in
-        if( empty( $others_replacements ) )
+        if( ! empty( $others_replacements ) )
         {
             $filtered_content = str_replace(
                 array_keys( $other_replacements ),
