@@ -161,7 +161,7 @@ class pmgSeoAutoLinkerFront
         }
         
         // Put other stuff back in
-        if( ! empty( $others_replacements ) )
+        if( ! empty( $other_replacements ) )
         {
             $filtered_content = str_replace(
                 array_keys( $other_replacements ),
