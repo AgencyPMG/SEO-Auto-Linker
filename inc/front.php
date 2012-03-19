@@ -124,7 +124,7 @@ class pmgSeoAutoLinkerFront
                 array_map( 'esc_attr', array_map( 'trim', explode( ',', $kw ) ) )
             );
             $filtered_content = preg_replace( 
-                '/(\b)(' . $regex . ')(\b)/iu',
+                '/(\b)(' . preg_quote( $regex ) . ')(\b)/iu',
                 '$1<a href="' . esc_url( $url ) . '" title="$2">$2</a>$3',
                 $filtered_content,
                 absint( $max )

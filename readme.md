@@ -31,7 +31,7 @@ Frequently Asked Questions
 
 **When I specify keywords, will they all get linked?**
 
-Sort of.  If you keyword list is `lorem, ipsum`, the word `lorem` OR the word `ipsum` will be linked to the specified URL.  If the content contains both `lorem` and `ipsum, they will only both be linked if you set the number of links per post to more than one for that keyword list.
+Sort of.  If you keyword list is `lorem, ipsum`, the word `lorem` OR the word `ipsum` will be linked to the specified URL.  If the content contains both `lorem` and `ipsum`, they will only both be linked if you set the number of links per post to more than one for that keyword list.
 
 **Will this slow my site down?**
 
@@ -49,7 +49,20 @@ Nope. Because custom fields (aka post meta) can be used for so many different th
 Changelog
 ----------------
 
+**0.6.3**
+
+* Use `preg_quote`
+
+**0.6.2**
+
+* Quick fixes for image replacements
+
+**0.6.1**
+
+* Quick fixes to header replacements
+
 **0.6**
+
 * Switched regex to unicode
 * Added feature to blacklist URL's by keyword level, or site wide level
 * Content in shortcodes is immune to replaces (eg. image captions, etc)
