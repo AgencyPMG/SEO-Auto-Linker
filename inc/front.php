@@ -120,11 +120,20 @@ class pmgSeoAutoLinkerFront
             
             // Finally! add our links via preg_replace
             $regex = implode( 
-                '|', 
-                array_map( 'esc_attr', array_map( 'trim', explode( ',', $kw ) ) )
+                '|',
+                array_map(
+                    'preg_quote',
+                    array_map( 
+                        'esc_attr', 
+                        array_map( 
+                            'trim', 
+                            explode( ',', $kw ) 
+                        ) 
+                    )
+                )
             );
             $filtered_content = preg_replace( 
-                '/(\b)(' . preg_quote( $regex ) . ')(\b)/iu',
+                '/(\b)(' . $regex . ')(\b)/iu',
                 '$1<a href="' . esc_url( $url ) . '" title="$2">$2</a>$3',
                 $filtered_content,
                 absint( $max )

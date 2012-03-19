@@ -49,6 +49,10 @@ Nope. Because custom fields (aka post meta) can be used for so many different th
 Changelog
 ----------------
 
+**0.6.4**
+
+* Better use of `preg_quote`
+
 **0.6.3**
 
 * Use `preg_quote`
