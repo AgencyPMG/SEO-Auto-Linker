@@ -49,6 +49,10 @@ Nope. Because custom fields (aka post meta) can be used for so many different th
 Changelog
 ----------------
 
+**0.6.5**
+
+* Added ability to have rule be on page AND post
+
 **0.6.4**
 
 * Better use of `preg_quote`

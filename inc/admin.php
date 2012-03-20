@@ -89,7 +89,9 @@ class pmgSeoAutoLinkerAdmin
                                                 $name = isset( $typeobj->labels->singular_name ) ? $typeobj->labels->singular_name : $typeobj->label;
                                                 echo '<option value="' . $type . '" ' . selected( $type, $this->get_value( $index, $types ), false ) . '>' . esc_attr( $name ) . '</option>';
                                             }
+	                                        //Custom post AND page type
                                         ?>
+	                                    <option <?php selected( 'post,page', $this->get_value( $index, $types )); ?> value="post,page">Post & Page</option>
                                     </select>
                                 </td>
                                 <td>
@@ -129,7 +131,9 @@ class pmgSeoAutoLinkerAdmin
                                         $name = isset( $typeobj->labels->singular_name ) ? $typeobj->labels->singular_name : $typeobj->label;
                                         echo '<option value="' . $type . '">' . esc_attr( $name ) . '</option>';
                                     }
+                                    //Custom post AND page type
                                 ?>
+                                    <option value="post,page">Post & Page</option>
                                 </select>
                             </td>
                             <td></td>

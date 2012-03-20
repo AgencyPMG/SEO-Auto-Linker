@@ -91,8 +91,10 @@ class pmgSeoAutoLinkerFront
             $exclude_urls = isset( $opts['blacklist'][$index] ) ? 
                             explode(',', $opts['blacklist'][$index]) : array();
             if( in_array( $permalink, $exclude_urls ) ) continue;
-
-            $nope = isset( $opts['types'][$index] ) && $post->post_type != $opts['types'][$index] ? true : false;
+            
+            $opts['types'][$index] = explode(',', $opts['types'][$index]);
+            
+            $nope = isset( $opts['types'][$index] ) && !in_array($post->post_type, $opts['types'][$index]) ? true : false;
             if( $nope ) continue;
             
             $url = isset( $opts['url'][$index] ) ? $opts['url'][$index] : false;
