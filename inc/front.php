@@ -15,7 +15,7 @@ class pmgSeoAutoLinkerFront
         $opts = get_option( 'pmg_autolinker_options' );
         
         $permalink = get_permalink( $post );
-        $site_wide_exclude_urls = isset( $opts['site_wide_blackist'] ) ?
+        $site_wide_exclude_urls = isset( $opts['site_wide_blacklist'] ) ?
                         explode( ',', $opts['site_wide_blacklist'] ) : array();
         if( in_array( $permalink, $site_wide_exclude_urls ) )
         {
