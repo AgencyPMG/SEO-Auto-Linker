@@ -25,7 +25,8 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
     {
         add_filter(
             'the_content',
-            array(get_class(), 'content')
+            array(get_class(), 'content'),
+            1
         );
     }
 
