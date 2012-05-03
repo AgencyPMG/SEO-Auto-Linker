@@ -12,6 +12,16 @@ abstract class SEO_Auto_Linker_Base
     const PREFIX = 'seoal_';
 
     /*
+     * Old setting.  Used for migration.
+     */
+    const OLD_SETTING = 'pmg_autolinker_options';
+
+    /*
+     * The current setting
+     */
+    const SETTING = 'seoal_options';
+
+    /*
      * Container for post_meta
      */
     protected static $meta;
