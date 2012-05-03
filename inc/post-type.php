@@ -37,6 +37,35 @@ class SEO_Auto_Linker_Post_Type extends SEO_Auto_Linker_Base
             'dbx_post_sidebar',
             array(get_class(), 'nonce_field')
         );
+
+        add_action(
+            'manage_' . self::POST_TYPE . '_posts_custom_column',
+            array(get_class(), 'column_cb'),
+            10,
+            2
+        );
+
+        add_action(
+            'load-edit.php',
+            array(get_class(), 'load_edit')
+        );
+
+        add_filter(
+            'post_updated_messages',
+            array(get_class(), 'update_messages')
+        );
+
+        add_filter(
+            'manage_edit-' . self::POST_TYPE . '_columns',
+            array(get_class(), 'columns')
+        );
+
+        add_filter(
+            'post_row_actions',
+            array(get_class(), 'actions'),
+            10,
+            2
+        );
     }
 
     /*
@@ -146,6 +175,36 @@ class SEO_Auto_Linker_Post_Type extends SEO_Auto_Linker_Base
         );
 
         self::setup_meta($post);
+    }
+
+    /*
+     * hooked into `load-edit.php`.  
+     *
+     * @todo contextual help
+     * @since 0.7
+     */
+    public static function load_edit()
+    {
+        $pt = isset($_GET['post_type']) ? $_GET['post_type'] : false;
+        if($pt && $pt == self::POST_TYPE)
+        {
+            $screen = get_current_screen();
+            add_filter(
+                'display_post_states',
+                array(get_class(), 'change_states')
+            );
+
+            add_filter(
+                "bulk_actions-{$screen->id}",
+                array(get_class(), 'bulk_actions')
+            );
+
+            // kill views for now @todo maybe?
+            add_filter(
+                "views_{$screen->id}",
+                '__return_empty_array'
+            );
+        }
     }
 
     /*
@@ -354,6 +413,118 @@ class SEO_Auto_Linker_Post_Type extends SEO_Auto_Linker_Base
         </label><br />
         <?php
         endforeach;
+    }
+
+    /********** Misc. Display funcitonality **********/
+
+    /*
+     * Filters post updated messages to include things for our post type
+     *
+     * @since 0.7
+     */
+    public static function update_messages($msg)
+    {
+        $msg[self::POST_TYPE] = array(
+            0  => '', // unused
+            1  => __('Link Updated', 'seoal'),
+            2  => '', // custom field updated?  wtf is that?
+            3  => '', // same
+            4  => __('Link Updated', 'seoal'),
+            5  => '', // we don't use post revisions
+            6  => __('Link Updated', 'seoal'),
+            7  => __('Link Updated', 'seoal'),
+            8  => '', // will never be used
+            9  => '', // we dont' schedule links
+            10 => __('Link Updated', 'seoal')
+        );
+        return $msg;
+    }
+
+    /*
+     * Filter columns for the post list type
+     *
+     * @since 0.7
+     */
+    public static function columns($columns)
+    {
+        $columns = array(
+            'cb'       => '<input type="checkbox" />',
+            'title'    => __('Title', 'seoal'),
+            'keywords' => __('Keywords', 'seoal'),
+            'url'      => __('URL', 'seoal')
+        );
+        return $columns;
+    }
+
+    /*
+     * Spits out the values for the list table columns
+     *
+     * @since 0.7
+     */
+    public static function column_cb($column, $post_id)
+    {
+        switch($column)
+        {
+            case 'keywords':
+                if($kw = get_post_meta($post_id, self::get_key('keywords'), true))
+                {
+                    echo esc_html($kw);
+                }
+                else
+                {
+                    _e('No Keywords.', 'seoal');
+                }
+                break;
+            case 'url':
+                if($url = get_post_meta($post_id, self::get_key('url'), true))
+                {
+                    echo esc_url($url);
+                }
+                else
+                {
+                    _e('No URL.', 'seoal');
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    /*
+     * Removes quick edit form post row options
+     *
+     * @since 0.7
+     */
+    public static function actions($actions, $post)
+    {
+        if($post->post_type != self::POST_TYPE) return $actions;
+        if(isset($actions['inline hide-if-no-js']))
+            unset($actions['inline hide-if-no-js']);
+        return $actions;
+    }
+
+    /*
+     * Change 'draft' to `disabled`
+     *
+     * @since 0.7
+     */
+    public static function change_states($states)
+    {
+        if(isset($states['draft']))
+            $states['draft'] = __('Disabled', 'seoal');
+        return $states;
+    }
+
+    /*
+     * Remove the bulk edit action
+     *
+     * @since 0.7
+     */
+    public static function bulk_actions($actions)
+    {
+        if(isset($actions['edit']))
+            unset($actions['edit']);
+        return $actions;
     }
 } // end class
 
