@@ -77,6 +77,14 @@ class SEO_Auto_Linker_Admin extends SEO_Auto_Linker_Base
             $in['blacklist'] : array();
         $lines = preg_split('/\r\n|\r|\n/', $blacklist);
         $out['blacklist'] = array_map('esc_url', $lines);
+
+        add_settings_error(
+            self::SETTING,
+            'seoal-success',
+            __('Settings Saved', 'seoal'),
+            'updated'
+        );
+
         return $out;
     }
 
