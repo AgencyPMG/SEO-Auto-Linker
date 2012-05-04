@@ -40,9 +40,6 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
         global $post;
         if(!self::allowed($post)) return $content;
 
-        // we're going to do a lot of counting...
-        $counter = 0;
-
         $header_replacements = array();
         $link_replacements = array();
         $other_replacements = array();
@@ -95,16 +92,18 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
                 $regex,
                 '$1<a href="' . esc_url( $url ) . '" title="$2">$2</a>$3',
                 $filtered,
-                $max
+                absint($max)
             );
         }
+
+        $filtered = apply_filters('seoal_pre_replace', $filtered, $post);
 
         $filtered = self::replace_bak($link_replacements, $filtered);
         $filtered = self::replace_bak($header_replacements, $filtered);
         $filtered = self::replace_bak($shortcode_replacements, $filtered);
         $filtered = self::replace_bak($other_replacements, $filtered);
         
-        return $filtered;
+        return apply_filters('seoal_post_replace', $filtered, $post);
     }
 
     /*
@@ -137,18 +136,27 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
             'post_type'   => self::POST_TYPE,
             'numberposts' => -1,
             'meta_query'  => array(
+                'relation' => 'AND',
                 array(
                     'key'     => self::get_key("type_{$post->post_type}"),
                     'value'   => 'on',
                     'compare' => '='
+                ),
+                array(
+                    'key'     => self::get_key('url'),
+                    'compare' => 'EXISTS' // doesn't do anything, just a reminder
+                ),
+                array(
+                    'key'     => self::get_key('keywords'),
+                    'compare' => 'EXISTS' // doesn't do anything, just a reminder
                 )
             )
         ));
         $rv = array();
         foreach($links as $l)
         {
-            $blacklist = get_post_meta($l->ID, self::get_key('blacklist'), true);
-            if(!$blacklist || !in_array(self::$permalink, $blacklist))
+            $blacklist = self::get_meta($l, 'blacklist');
+            if(!$blacklist || !in_array(self::$permalink, (array)$blacklist))
                 $rv[] = $l;
         }
         self::$links = $rv;
@@ -161,8 +169,8 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
      */
     protected static function get_kw_regex($link)
     {
-        $keywords = self::get_keywords($link->ID);
-        return sprintf('#(\b)(%s)(\b)#ui', implode('|', $keywords));
+        $keywords = self::get_keywords($link);
+        return sprintf('/(\b)(%s)(\b)/ui', implode('|', $keywords));
     }
 
     /*
@@ -170,23 +178,25 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
      *
      * @since 0.7
      */
-    protected static function get_keywords($link_id)
+    protected static function get_keywords($link)
     {
-        $keywords = get_post_meta($link_id, self::get_key('keywords'), true);
+        $keywords = self::get_meta($link, 'keywords');
         $kw_arr = explode(',', $keywords);
+        $kw_arr = apply_filters('seoal_link_keywords', $kw_arr, $link);
         $kw_arr = array_map('trim', $kw_arr);
         $kw_arr = array_map('preg_quote', $kw_arr);
         return $kw_arr;
     }
 
     /*
-     * Get the link URL fro a keyword
+     * Get the link URL for a keyword
      *
      * @since 0.7
      */
     protected static function get_link_url($link)
     {
-        return get_post_meta($link->ID, self::get_key('url'), true);
+        $meta = self::get_meta($link, 'url');
+        return apply_filters('seoal_link_url', $meta, $link);
     }
 
     /*
@@ -196,8 +206,19 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
      */
     protected static function get_link_max($link)
     {
-        $meta = get_post_meta($link->ID, self::get_key('times'), true);
-        return absint($meta) ? absint($meta) : 1;
+        $meta = self::get_meta($link, 'times');
+        $meta = absint($meta) ? absint($meta) : 1;
+        return apply_filters('seoal_link_max', $meta, $link);
+    }
+
+    /*
+     * Replace get meta
+     *
+     * @since 0.7
+     */
+    protected static function get_meta($post, $key)
+    {
+        return get_post_meta($post->ID, self::get_key($key), true);
     }
 
     /*
