@@ -49,7 +49,7 @@ Nope. Because custom fields (aka post meta) can be used for so many different th
 Changelog
 ----------------
 
-** 0.7 **
+**0.7**
 
 * Revamped admin area
 * Support for multibyte strings? (maybe)
