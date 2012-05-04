@@ -21,3 +21,20 @@ else
 {
     require_once(SEOAL_PATH . 'inc/front.php');
 }
+
+
+add_action('init', 'seoal_load_textdomain');
+/*
+ * Loads the plugin's text domain for translation
+ *
+ * @uses load_plugin_textdomain
+ * @since 0.7
+ */
+function seoal_load_textdomain()
+{
+    load_plugin_textdomain(
+        'seoal',
+        false,
+        dirname(plugin_basename(__FILE__)) . '/lang/'
+    );
+}
