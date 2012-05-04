@@ -202,7 +202,7 @@ class SEO_Auto_Linker_Post_Type extends SEO_Auto_Linker_Base
             // kill views for now @todo maybe?
             add_filter(
                 "views_{$screen->id}",
-                '__return_empty_array'
+                array(get_class(), 'filter_views')
             );
         }
     }
@@ -379,21 +379,10 @@ class SEO_Auto_Linker_Post_Type extends SEO_Auto_Linker_Base
         // I have a hunch this is bad for windows machines?
         $blacklist = implode("\n", $blacklist);
         ?>
-        <table class="form-table">
-            <tr>
-                <th scope="row">
-                    <label for="<?php self::key('blacklist'); ?>">
-                        <?php _e('Blacklist', 'seoal'); ?>
-                    </label>
-                </th>
-                <td>
-                    <textarea class="widefat" id="<?php self::key('blacklist'); ?>" name="<?php self::key('blacklist'); ?>" rows="15"><?php echo $blacklist; ?></textarea>
-                    <p class="description">
-                        <?php _e("URLs on which you don't want to have this link.", 'seoal'); ?>
-                    </p>
-                </td>
-            </tr>
-        </table>
+        <textarea class="widefat" id="<?php self::key('blacklist'); ?>" name="<?php self::key('blacklist'); ?>" rows="15"><?php echo $blacklist; ?></textarea>
+        <p class="description">
+            <?php _e("URLs on which you don't want to have this link.", 'seoal'); ?>
+        </p>
         <?php
     }
 
@@ -525,6 +514,22 @@ class SEO_Auto_Linker_Post_Type extends SEO_Auto_Linker_Base
         if(isset($actions['edit']))
             unset($actions['edit']);
         return $actions;
+    }
+
+    /*
+     * Remove drafts & published from the views
+     *
+     * @since .07
+     */
+    public static function filter_views($views)
+    {
+        if(isset($views['draft']))
+            unset($views['draft']);
+        if(isset($views['publish']))
+            unset($views['publish']);
+        // if it's just the "all" label, forget it
+        if(count($views) == 1) return array();
+        return $views;
     }
 } // end class
 
