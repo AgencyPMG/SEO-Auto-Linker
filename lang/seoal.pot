@@ -7,167 +7,163 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-KeywordsList: __;_e;esc_attr_e;esc_attr__\n"
-"X-Poedit-Basepath: .\n"
-"X-Poedit-Language: English\n"
-"X-Poedit-SearchPath-0: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker\n"
 
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/admin.php:35
+#: inc/admin.php:35
 msgid "Sitewide Blacklist"
 msgstr ""
 
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/admin.php:42
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/post-type.php:160
+#: inc/admin.php:42
+#: inc/post-type.php:160
 msgid "Blacklist"
 msgstr ""
 
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/admin.php:59
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/admin.php:99
+#: inc/admin.php:59
+#: inc/admin.php:99
 msgid "SEO Auto Linker Options"
 msgstr ""
 
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/admin.php:60
+#: inc/admin.php:60
 msgid "Options"
 msgstr ""
 
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/admin.php:84
+#: inc/admin.php:84
 msgid "Settings Saved"
 msgstr ""
 
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/admin.php:105
+#: inc/admin.php:105
 msgid "Save Settings"
 msgstr ""
 
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/admin.php:122
+#: inc/admin.php:122
 msgid "The URLs on your site where you do not want any automatic links to appear.  One URL per line."
 msgstr ""
 
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/post-type.php:80
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/post-type.php:94
+#: inc/post-type.php:80
+#: inc/post-type.php:94
 msgid "Automatic Links"
 msgstr ""
 
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/post-type.php:81
+#: inc/post-type.php:81
 msgid "Automatic Link"
 msgstr ""
 
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/post-type.php:82
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/post-type.php:84
+#: inc/post-type.php:82
+#: inc/post-type.php:84
 msgid "Add New Link"
 msgstr ""
 
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/post-type.php:83
+#: inc/post-type.php:83
 msgid "All Links"
 msgstr ""
 
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/post-type.php:85
+#: inc/post-type.php:85
 msgid "Edit Link"
 msgstr ""
 
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/post-type.php:86
+#: inc/post-type.php:86
 msgid "New Link"
 msgstr ""
 
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/post-type.php:87
+#: inc/post-type.php:87
 msgid "Search Links"
 msgstr ""
 
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/post-type.php:88
+#: inc/post-type.php:88
 msgid "No Links Found"
 msgstr ""
 
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/post-type.php:89
+#: inc/post-type.php:89
 msgid "No Links in the Trash"
 msgstr ""
 
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/post-type.php:90
+#: inc/post-type.php:90
 msgid "SEO Auto Linker"
 msgstr ""
 
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/post-type.php:96
+#: inc/post-type.php:96
 msgid "A container for SEO Auto Linker"
 msgstr ""
 
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/post-type.php:140
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/post-type.php:309
+#: inc/post-type.php:140
+#: inc/post-type.php:309
 msgid "Save"
 msgstr ""
 
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/post-type.php:150
+#: inc/post-type.php:150
 msgid "Keywords & URL"
 msgstr ""
 
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/post-type.php:170
+#: inc/post-type.php:170
 msgid "Allowed Post Types"
 msgstr ""
 
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/post-type.php:295
+#: inc/post-type.php:295
 msgid "You must be an admin to edit links"
 msgstr ""
 
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/post-type.php:301
+#: inc/post-type.php:301
 msgid "Status: "
 msgstr ""
 
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/post-type.php:303
+#: inc/post-type.php:303
 msgid "Enabled"
 msgstr ""
 
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/post-type.php:304
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/post-type.php:503
+#: inc/post-type.php:304
+#: inc/post-type.php:503
 msgid "Disabled"
 msgstr ""
 
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/post-type.php:308
+#: inc/post-type.php:308
 msgid "Delete"
 msgstr ""
 
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/post-type.php:326
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/post-type.php:442
+#: inc/post-type.php:326
+#: inc/post-type.php:442
 msgid "Keywords"
 msgstr ""
 
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/post-type.php:332
+#: inc/post-type.php:332
 msgid "Comman separated. These are the terms you want to link."
 msgstr ""
 
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/post-type.php:339
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/post-type.php:443
+#: inc/post-type.php:339
+#: inc/post-type.php:443
 msgid "URL"
 msgstr ""
 
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/post-type.php:345
+#: inc/post-type.php:345
 msgid "The url to which you want to link."
 msgstr ""
 
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/post-type.php:352
+#: inc/post-type.php:352
 msgid "Links per Page"
 msgstr ""
 
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/post-type.php:359
+#: inc/post-type.php:359
 msgid "The number of times per page (or post type) you wantthe above keyowrds to link to the url"
 msgstr ""
 
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/post-type.php:384
+#: inc/post-type.php:384
 msgid "URLs on which you don't want to have this link."
 msgstr ""
 
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/post-type.php:418
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/post-type.php:421
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/post-type.php:423
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/post-type.php:424
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/post-type.php:427
+#: inc/post-type.php:418
+#: inc/post-type.php:421
+#: inc/post-type.php:423
+#: inc/post-type.php:424
+#: inc/post-type.php:427
 msgid "Link Updated"
 msgstr ""
 
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/post-type.php:441
+#: inc/post-type.php:441
 msgid "Title"
 msgstr ""
 
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/post-type.php:464
+#: inc/post-type.php:464
 msgid "No Keywords."
 msgstr ""
 
-#: /Users/chris/Sites/wordpress/htdocs/wp-content/plugins/seo-auto-linker/inc/post-type.php:474
+#: inc/post-type.php:474
 msgid "No URL."
 msgstr ""
