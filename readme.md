@@ -3,7 +3,7 @@ SEO Auto Linker
 
 Requires at least: 3.2
 
-Tested up to: 3.3
+Tested up to: 3.4
 
 SEO Auto Linker allows you to automagically add links into your content. Great for internal linking!
 
@@ -21,7 +21,7 @@ Bugs?  Problems?  [Get in touch](http://pmg.co/contact).
 Installation
 ----------------
 
-1. Download the [zip file](https://github.com/chrisguitarguy/SEO-Auto-Linker/zipball/0.4)
+1. Download the [zip file](https://github.com/chrisguitarguy/SEO-Auto-Linker/zipball/0.7)
 2. Unzip and upload the `seo-auto-linker` folder to your `wp-content/plugins` directory OR Install the plugin directly from the zip folder via the upload feature in the new plugin area
 3. In the WordPress admin area, click "Plugins" on the menu and activate SEO Auto Linker
 4. Set up your keywords and sit back!
@@ -48,6 +48,12 @@ Nope. Because custom fields (aka post meta) can be used for so many different th
 
 Changelog
 ----------------
+
+** 0.7 **
+
+* Revamped admin area
+* Support for multibyte strings? (maybe)
+* Completely refactored code
 
 **0.6.4**
 
