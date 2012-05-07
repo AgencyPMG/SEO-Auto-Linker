@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: SEO Auto Linker Migration
-Description: Migrates your old SEO Auto Linker keywords to the new admin UI.  Just activate and you're done. Feed free to deactivate the plugin after activating once.
+Description: Migrates your old SEO Auto Linker keywords to the new admin UI.  Just activate and you're done. Feel free to deactivate the plugin after activating once.
 Version: Thereisnoversion
 Author: Christopher Davis
 Author URI: http://christopherdavis.me
