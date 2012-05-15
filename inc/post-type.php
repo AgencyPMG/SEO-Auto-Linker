@@ -30,12 +30,9 @@ class SEO_Auto_Linker_Post_Type extends SEO_Auto_Linker_Base
 
         add_action(
             'save_post',
-            array(get_class(), 'save')
-        );
-
-        add_action(
-            'dbx_post_sidebar',
-            array(get_class(), 'nonce_field')
+            array(get_class(), 'save'),
+            10,
+            2
         );
 
         add_action(
@@ -174,6 +171,11 @@ class SEO_Auto_Linker_Post_Type extends SEO_Auto_Linker_Base
             'low'
         );
 
+        add_action(
+            'dbx_post_sidebar',
+            array(get_class(), 'nonce_field')
+        );
+
         self::setup_meta($post);
     }
 
@@ -216,8 +218,9 @@ class SEO_Auto_Linker_Post_Type extends SEO_Auto_Linker_Base
      * @uses current_user_can
      * @since 0.7
      */
-    public static function save($post_id)
+    public static function save($post_id, $post)
     {
+        if($post->post_type != self::POST_TYPE) return;
         if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
         if(!current_user_can('manage_options')) return;
         if(!isset($_POST[self::NONCE]) || !wp_verify_nonce($_POST[self::NONCE], self::NONCE)) 
