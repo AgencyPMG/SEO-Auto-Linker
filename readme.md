@@ -49,7 +49,7 @@ Nope. Because custom fields (aka post meta) can be used for so many different th
 Changelog
 ----------------
 
-** 0.7.1 **
+**0.7.1**
 
 * Removed auto save script on the link editing screen (see #6)
 * Fixed versioning issue with the migration plugin (see #4)
