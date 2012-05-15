@@ -47,6 +47,16 @@ class SEO_Auto_Linker_Post_Type extends SEO_Auto_Linker_Base
             array(get_class(), 'load_edit')
         );
 
+        add_action(
+            'load-post-new.php',
+            array(get_class(), 'no_autosave')
+        );
+
+        add_action(
+            'load-post.php',
+            array(get_class(), 'no_autosave')
+        );
+
         add_filter(
             'post_updated_messages',
             array(get_class(), 'update_messages')
@@ -201,11 +211,28 @@ class SEO_Auto_Linker_Post_Type extends SEO_Auto_Linker_Base
                 array(get_class(), 'bulk_actions')
             );
 
-            // kill views for now @todo maybe?
             add_filter(
                 "views_{$screen->id}",
                 array(get_class(), 'filter_views')
             );
+        }
+    }
+
+    /*
+     * A hack to get rid of the autosave script on the seoal_container post type
+     * edit screen. This script was causing errors and saying that the user was
+     * leaving the page without saving (even when hitting the submit button).
+     *
+     * @uses wp_deregister_script
+     * @since 0.7.1
+     */
+    public static function no_autosave()
+    {
+        global $typenow; // sigh globals
+        if(self::POST_TYPE == $typenow)
+        {
+            // why doesn't `wp_dequeue_script` work?
+            wp_deregister_script('autosave');
         }
     }
 
