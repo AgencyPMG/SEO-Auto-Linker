@@ -81,4 +81,19 @@ abstract class SEO_Auto_Linker_Base
         echo esc_attr(self::get_key($key));
     }
 
+    /*
+     * Fetch the available target attributes
+     *
+     * @since 0.7.2
+     * @return array The list of target atts
+     */
+    protected static function get_targets()
+    {
+        $targets = array(
+            '_blank' => __('_blank', 'seoal'),
+            '_top'   => __('_top', 'seoal'),
+            '_self'  => __('_self', 'seoal')
+        );
+        return apply_filters('seoal_targs', $targets);
+    }
 } // end class

@@ -256,7 +256,8 @@ class SEO_Auto_Linker_Post_Type extends SEO_Auto_Linker_Base
         $map = array(
             'keywords' => array('strip_tags', 'esc_attr'),
             'url'      => array('esc_url'),
-            'times'    => array('absint')
+            'times'    => array('absint'),
+            'target'   => array('esc_attr')
         );
         foreach($map as $key => $escapers)
         {
@@ -348,6 +349,7 @@ class SEO_Auto_Linker_Post_Type extends SEO_Auto_Linker_Base
      */
     public static function keyword_cb($post)
     {
+        $target = self::get_meta('target');
         ?>
         <table class="form-table">
             <tr>
@@ -392,6 +394,19 @@ class SEO_Auto_Linker_Post_Type extends SEO_Auto_Linker_Base
                     </p>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    <label for="<?php self::key('target'); ?>">
+                        <?php _e('Target', 'seoal'); ?>
+                    </label>
+                </td>
+                <td>
+                    <select name="<?php self::key('target'); ?>" id="<?php self::key('target'); ?>">
+                        <?php foreach(self::get_targets() as $val => $label): ?>
+                            <option value="<?php echo esc_attr($val); ?>" <?php selected($target, $val); ?>><?php echo esc_html($label); ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </td>
         </table>
         <?php
     }

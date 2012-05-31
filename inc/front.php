@@ -90,10 +90,11 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
             $max = self::get_link_max($l);
             if(!$regex || !$url || !$max)
                 continue;
-
+            
+            $target = self::get_link_target($l);
             $filtered = preg_replace(
                 $regex,
-                '$1<a href="' . esc_url( $url ) . '" title="$2">$2</a>$3',
+                '$1<a href="' . esc_url( $url ) . '" title="$2" target="' . $target . '">$2</a>$3',
                 $filtered,
                 absint($max)
             );
@@ -216,6 +217,23 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
         $meta = self::get_meta($link, 'times');
         $meta = absint($meta) ? absint($meta) : 1;
         return apply_filters('seoal_link_max', $meta, $link);
+    }
+
+    /*
+     * Get the target attribute for a given link
+     *
+     * @since 0.7.2
+     * @return string The escaped target att
+     */
+    protected static function get_link_target($link)
+    {
+        $target = self::get_meta($link, 'target');
+        $target = apply_filters('seoal_link_target', $target, $link);
+        if(!in_array($target, array_keys(self::get_targets())))
+        {
+            $target = '_self';
+        }
+        return esc_attr($target);
     }
 
     /*
