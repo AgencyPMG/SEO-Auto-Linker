@@ -67,8 +67,13 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
             $filtered = self::replace($other_replacements, $filtered);
         }
 
-        foreach(self::$links as $l)
+        foreach(self::$links as $count => $l)
         {
+            if(apply_filters('seoal_should_continue', false, $l, $count))
+            {
+                continue;
+            }
+
             preg_match_all(
                 '/<a(.*?)href="(.*?)"(.*?)>(.*?)<\/a>/iu',
                 $filtered,
