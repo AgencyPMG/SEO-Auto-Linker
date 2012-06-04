@@ -58,7 +58,7 @@ Nope. Because custom fields (aka `wp_postmeta`) can be used for so many differen
 == Changelog ==
 
 = 0.7.2 =
-
+* Added filters throughout the plugin
 
 = 0.7.1 =
 * Fixed versioning issue on migration plugin
@@ -104,7 +104,7 @@ Nope. Because custom fields (aka `wp_postmeta`) can be used for so many differen
 == Upgrade Notice ==
 
 = 0.7.2 =
-
+* Nothing major -- if you're a developer interested in extending SEO Auto Linker, you should upgrade
 
 = 0.7.1 =
 * Fixes annoying versioning issue on the plugin screen

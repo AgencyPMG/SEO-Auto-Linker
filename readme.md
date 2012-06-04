@@ -51,6 +51,8 @@ Changelog
 
 **0.7.2**
 
+* Added filters throughout the plugin to make things a bit more exensible.
+
 **0.7.1**
 
 * Removed auto save script on the link editing screen (see #6)
