@@ -94,6 +94,6 @@ abstract class SEO_Auto_Linker_Base
             '_top'   => __('_top', 'seoal'),
             '_self'  => __('_self', 'seoal')
         );
-        return apply_filters('seoal_targs', $targets);
+        return apply_filters('seoal_targets', $targets);
     }
 } // end class
