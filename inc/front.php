@@ -197,8 +197,13 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
         $kw_arr = explode(',', $keywords);
         $kw_arr = apply_filters('seoal_link_keywords', $kw_arr, $link);
         $kw_arr = array_map('trim', (array)$kw_arr);
-        $kw_arr = array_map('preg_quote', $kw_arr);
-        return $kw_arr;
+        $kw_out = array();
+        foreach($kw_arr as $kw)
+        {
+            // Second argument of `preg_quote`? Does not default to `/`
+            $kw_out[] = preg_quote($kw, '/');
+        }
+        return $kw_out;
     }
 
     /*
