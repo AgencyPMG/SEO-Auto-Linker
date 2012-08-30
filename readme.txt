@@ -63,6 +63,10 @@ This was a deliberate decision and isn't likely to change.
 
 == Changelog ==
 
+= 0.8 =
+* A few small bugfixes
+* Removing the migration plugin
+
 = 0.7.2 =
 * Added filters throughout the plugin
 
@@ -108,6 +112,11 @@ This was a deliberate decision and isn't likely to change.
 * Support for automatic linking added
 
 == Upgrade Notice ==
+
+= 0.8 =
+* A few bug fixes causing errors with shortcodes
+* Removing the SEO Auto Linker Migraton plugin.
+* If you're upgrading from less than 0.7, you'll need to get 0.7.x first, then upgrade to 0.8. Please see the upgrade notice for 0.7 for more info.
 
 = 0.7.2 =
 * Nothing major -- if you're a developer interested in extending SEO Auto Linker, you should upgrade
