@@ -46,18 +46,18 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
         $shortcode_replacements = array();
         $filtered = $content;
 
-        preg_match_all('/<h[1-6][^>]*>.+?<\/h[1-6]>/iu', $filtered, $headers);
-        if(!empty($headers[0]))
-        {
-            $header_replacements = self::gen_replacements($headers[0], 'header');
-            $filtered = self::replace($header_replacements, $filtered);
-        }
-
         preg_match_all('/' . get_shortcode_regex() . '/', $filtered, $scodes);
         if(!empty($scodes[0]))
         {
             $shortcode_replacements = self::gen_replacements($scodes[0], 'shortcode');
             $filtered = self::replace($shortcode_replacements, $filtered);
+        }
+
+        preg_match_all('/<h[1-6][^>]*>.+?<\/h[1-6]>/iu', $filtered, $headers);
+        if(!empty($headers[0]))
+        {
+            $header_replacements = self::gen_replacements($headers[0], 'header');
+            $filtered = self::replace($header_replacements, $filtered);
         }
 
         preg_match_all('/<(img|input)(.*?) \/?>/iu', $filtered, $others);
@@ -107,11 +107,11 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
 
         $filtered = apply_filters('seoal_pre_replace', $filtered, $post);
 
-        $filtered = self::replace_bak($link_replacements, $filtered);
-        $filtered = self::replace_bak($header_replacements, $filtered);
         $filtered = self::replace_bak($shortcode_replacements, $filtered);
+        $filtered = self::replace_bak($header_replacements, $filtered);
         $filtered = self::replace_bak($other_replacements, $filtered);
-        
+        $filtered = self::replace_bak($link_replacements, $filtered);
+
         return apply_filters('seoal_post_replace', $filtered, $post);
     }
 
