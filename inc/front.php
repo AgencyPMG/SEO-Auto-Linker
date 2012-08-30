@@ -1,20 +1,27 @@
 <?php
 class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
 {
+    /**
+     * A prefix hash for our SEO autolinker replacements.
+     *
+     * @since   0.8
+     */
+    private static $hash;
+
     /*
      * Container for our post autolinker posts
      */
-    protected static $links;
+    private static $links;
 
     /*
      * Container for our options
      */
-    protected static $opts;
+    private static $opts;
 
     /*
      * Container for the current post's permalink
      */
-    protected static $permalink;
+    private static $permalink;
 
     /*
      * Adds actions and filters and such
