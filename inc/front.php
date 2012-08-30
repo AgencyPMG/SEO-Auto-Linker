@@ -30,7 +30,7 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
      */
     public static function init()
     {
-        self::$hash = md5(apply_filters('seoal_prefix_hash', 'seo-auto-linker'));
+        self::$hash = md5('seo-auto-linker');
         add_filter(
             'the_content',
             array(get_class(), 'content'),
