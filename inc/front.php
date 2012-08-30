@@ -30,6 +30,7 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
      */
     public static function init()
     {
+        self::$hash = md5(apply_filters('seoal_prefix_hash', 'seo-auto-linker'));
         add_filter(
             'the_content',
             array(get_class(), 'content'),
@@ -280,14 +281,18 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
      * Loop through a an array of matches and create an associative array of 
      * key value pairs to use for str replacements
      *
+     * @todo Look into just hashing the entire array key with md5 or
+     * something.  Might help avoid conflicts?
+     *
      * @since 0.7
      */
     protected function gen_replacements($arr, $key, $start=0)
     {
         $rv = array();
+        $h = self::$hash;
         foreach($arr as $a)
         {
-            $rv["<!--seo-auto-linker-{$key}-{$start}-->"] = $a;
+            $rv["<!--{$h}-{$key}-{$start}-->"] = $a;
             $start++;
         }
         return $rv;
