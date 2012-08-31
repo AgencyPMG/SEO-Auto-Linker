@@ -117,8 +117,8 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
 
         $filtered = self::replace_bak($shortcode_replacements, $filtered);
         $filtered = self::replace_bak($header_replacements, $filtered);
-        $filtered = self::replace_bak($other_replacements, $filtered);
         $filtered = self::replace_bak($link_replacements, $filtered);
+        $filtered = self::replace_bak($other_replacements, $filtered);
 
         return apply_filters('seoal_post_replace', $filtered, $post);
     }
