@@ -129,12 +129,19 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
     protected static function allowed($post)
     {
         $rv = true;
-        if(!is_singular() || !in_the_loop()) $rv = false;
+
+        if(!is_singular() || !in_the_loop())
+            $rv = false;
+
+        if(strpos($post->post_content, '<!--nolinks-->') !== false)
+            $rv = false;
 
         self::setup_links($post);
-        if(!self::$links) $rv = false;
+        if(!self::$links)
+            $rv = false;
 
-        if(in_array(self::$permalink, self::$opts['blacklist'])) $rv = false;
+        if(in_array(self::$permalink, self::$opts['blacklist']))
+            $rv = false;
 
         return apply_filters('seoal_allowed', $rv, $post);
     }
