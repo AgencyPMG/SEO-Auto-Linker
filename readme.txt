@@ -3,8 +3,8 @@ Contributors: chrisguitarguy, agencypmg
 Donate link: http://www.pwsausa.org/give.htm
 Tags: seo, links, internal links, automatic linking
 Requires at least: 3.2
-Tested up to: 3.4
-Stable tag: 0.8
+Tested up to: 3.5
+Stable tag: 0.8.1
 
 SEO Auto Linker allows you to automagically add links into your content. Great for internal linking!
 
@@ -52,6 +52,13 @@ Nope. Because custom fields (aka `wp_postmeta`) can be used for so many differen
 SEO Auto Linker ignores content inside of shortcodes. If you find yourself using shortcodes inside a theme to do things like columns, etc, you may be [doing it wrong](http://justintadlock.com/archives/2011/05/02/dealing-with-shortcode-madness).
 
 This was a deliberate decision and isn't likely to change.
+
+= Can I disable links for a single post/page/whatever? =
+
+Yes. Two ways:
+
+1. Add the post's permalink to the site-wide blacklist on the SEO Auto Linker options page
+2. Put `<!--nolinks-->` somewhere in the content of the post where you don't want links
 
 == Screenshots ==
 
@@ -112,6 +119,10 @@ This was a deliberate decision and isn't likely to change.
 * Support for automatic linking added
 
 == Upgrade Notice ==
+
+= 0.8.1 =
+* Fixes a bug that caused images within links to disappear
+* Introduces the `<!--nolinks-->` disabler
 
 = 0.8 =
 * A few bug fixes causing errors with shortcodes

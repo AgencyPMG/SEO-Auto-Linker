@@ -3,14 +3,13 @@
 Plugin Name: SEO Auto Linker
 Plugin URI: http://pmg.co/seo-auto-linker
 Description: Allows you to automatically link terms with in your post, page or custom post type content.
-Version: 0.8
-Author: Christopher Davis at PMG
+Version: 0.8.1
+Author: Christopher Davis
 Author URI: http://christopherdavis.me
 Text Domain: seoal
 Domain Path: /lang
-*/
-/*
-    Copyright 2012 Christopher Davis
+
+    Copyright 2012 Christopher Davis, Performance Media Group <seo@pmg.co>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License, version 2, as 
