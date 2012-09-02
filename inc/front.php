@@ -46,7 +46,12 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
     public static function content($content)
     {
         global $post;
-        if(!self::allowed($post)) return $content;
+        if(!self::allowed($post))
+            return $content;
+
+        self::setup_links($post);
+        if(!self::$links)
+            return $content;
 
         $header_replacements = array();
         $link_replacements = array();
@@ -136,9 +141,11 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
         if(strpos($post->post_content, '<!--nolinks-->') !== false)
             $rv = false;
 
-        self::setup_links($post);
-        if(!self::$links)
-            $rv = false;
+        self::$opts = get_option(self::SETTING, array());
+        if(!isset(self::$opts['blacklist']))
+            self::$opts['blacklist'] = array();
+
+        self::$permalink = get_permalink($post);
 
         if(in_array(self::$permalink, self::$opts['blacklist']))
             $rv = false;
@@ -153,11 +160,6 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
      */
     protected static function setup_links($post)
     {
-        self::$opts = get_option(self::SETTING, array());
-        if(!isset(self::$opts['blacklist']))
-            self::$opts['blacklist'] = array();
-
-        self::$permalink = get_permalink($post);
 
         $links = apply_filters('pre_seoal_links', false, $post);
         if(false === $links)
@@ -205,7 +207,8 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
     protected static function get_kw_regex($link)
     {
         $keywords = self::get_keywords($link);
-        if(!$keywords) return false;
+        if(!$keywords)
+            return false;
         return sprintf('/(\b)(%s)(\b)/ui', implode('|', $keywords));
     }
 
