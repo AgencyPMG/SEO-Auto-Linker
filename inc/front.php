@@ -186,7 +186,7 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
                     $rv[] = $l;
             }
         }
-        self::$links = apply_filters('seoal_links', $rv);
+        self::$links = apply_filters('seoal_links', $rv, $post);
     }
 
     /*
