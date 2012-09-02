@@ -162,29 +162,32 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
     {
 
         $links = apply_filters('pre_seoal_links', false, $post);
-        if(false === $links)
+        if(false !== $links)
         {
-            $links = get_posts(array(
-                'post_type'   => self::POST_TYPE,
-                'numberposts' => -1,
-                'meta_query'  => array(
-                    'relation' => 'AND',
-                    array(
-                        'key'     => self::get_key("type_{$post->post_type}"),
-                        'value'   => 'on',
-                        'compare' => '='
-                    ),
-                    array(
-                        'key'     => self::get_key('url'),
-                        'compare' => 'EXISTS' // doesn't do anything, just a reminder
-                    ),
-                    array(
-                        'key'     => self::get_key('keywords'),
-                        'compare' => 'EXISTS' // doesn't do anything, just a reminder
-                    )
-                )
-            ));
+            self::$links = $links;
+            return;
         }
+
+        $links = get_posts(array(
+            'post_type'   => self::POST_TYPE,
+            'numberposts' => -1,
+            'meta_query'  => array(
+                'relation' => 'AND',
+                array(
+                    'key'     => self::get_key("type_{$post->post_type}"),
+                    'value'   => 'on',
+                    'compare' => '='
+                ),
+                array(
+                    'key'     => self::get_key('url'),
+                    'compare' => 'EXISTS' // doesn't do anything, just a reminder
+                ),
+                array(
+                    'key'     => self::get_key('keywords'),
+                    'compare' => 'EXISTS' // doesn't do anything, just a reminder
+                )
+            )
+        ));
 
         $rv = array();
         if($links)
