@@ -55,3 +55,18 @@ function seoal_load_textdomain()
         dirname(plugin_basename(__FILE__)) . '/lang/'
     );
 }
+
+
+add_action('plugins_loaded', 'seoal_loaded');
+/**
+ * Provides an always safe action into which to hook for plugins that extend
+ * SEO Auto Linker.
+ *
+ * @since   0.8.2
+ * @uses    do_action
+ * @return  null
+ */
+function seoal_loaded()
+{
+    do_action('seoal_loaded');
+}
