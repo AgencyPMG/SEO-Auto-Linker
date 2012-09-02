@@ -4,7 +4,7 @@ Donate link: http://www.pwsausa.org/give.htm
 Tags: seo, links, internal links, automatic linking
 Requires at least: 3.2
 Tested up to: 3.5
-Stable tag: 0.8.1
+Stable tag: 0.8.2
 
 SEO Auto Linker allows you to automagically add links into your content. Great for internal linking!
 
