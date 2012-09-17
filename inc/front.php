@@ -187,7 +187,7 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
                     'compare' => 'EXISTS' // doesn't do anything, just a reminder
                 )
             ),
-            'suppress_filters' = false,
+            'suppress_filters' => false,
         ));
 
         $rv = array();
