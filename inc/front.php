@@ -170,7 +170,7 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
 
         $links = get_posts(array(
             'post_type'   => self::POST_TYPE,
-            'numberposts' => apply_filters('seoal_link_max', -1),
+            'numberposts' => apply_filters('seoal_number_links', -1),
             'meta_query'  => array(
                 'relation' => 'AND',
                 array(
