@@ -70,6 +70,9 @@ Yes. Two ways:
 
 == Changelog ==
 
+= 0.8.2 =
+* Adds a few filters. Nothing to be terribly excited about.
+
 = 0.8 =
 * A few small bugfixes
 * Removing the migration plugin
@@ -119,6 +122,9 @@ Yes. Two ways:
 * Support for automatic linking added
 
 == Upgrade Notice ==
+
+= 0.8.2 =
+* Adds a few additional filters see [the docs](https://github.com/AgencyPMG/SEO-Auto-Linker/wiki/Filters)
 
 = 0.8.1 =
 * Fixes a bug that caused images within links to disappear
