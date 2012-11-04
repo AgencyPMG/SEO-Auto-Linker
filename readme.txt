@@ -70,6 +70,9 @@ Yes. Two ways:
 
 == Changelog ==
 
+= 0.8.3 =
+* Small bugfix on saving the options page. Killing a PHP warning.
+
 = 0.8.2 =
 * Adds a few filters. Nothing to be terribly excited about.
 
@@ -122,6 +125,9 @@ Yes. Two ways:
 * Support for automatic linking added
 
 == Upgrade Notice ==
+
+= 0.8.3 =
+* Versy small bugfix. Upgrade to make sure saving the options doesn't cause errors.
 
 = 0.8.2 =
 * Adds a few additional filters see [the docs](https://github.com/AgencyPMG/SEO-Auto-Linker/wiki/Filters)
