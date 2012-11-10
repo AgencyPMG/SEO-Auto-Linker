@@ -135,8 +135,10 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
     {
         $rv = true;
 
-        if(!is_singular() || !in_the_loop())
-            $rv = false;
+        if(
+            (!is_singular() && apply_filters('seoal_only_single', true)) ||
+            !in_the_loop()
+        ) $rv = false;
 
         if(strpos($post->post_content, '<!--nolinks-->') !== false)
             $rv = false;
