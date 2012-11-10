@@ -4,7 +4,7 @@ Donate link: http://www.pwsausa.org/give.htm
 Tags: seo, links, internal links, automatic linking
 Requires at least: 3.2
 Tested up to: 3.5
-Stable tag: 0.8.3
+Stable tag: 0.8.4
 
 SEO Auto Linker allows you to automagically add links into your content. Great for internal linking!
 
@@ -70,6 +70,9 @@ Yes. Two ways:
 
 == Changelog ==
 
+= 0.8.4 =
+* Introduce the `seoal_only_single` filter to allow users to add links on archives, etc.
+
 = 0.8.3 =
 * Small bugfix on saving the options page. Killing a PHP warning.
 
@@ -125,6 +128,9 @@ Yes. Two ways:
 * Support for automatic linking added
 
 == Upgrade Notice ==
+
+= 0.8.4 =
+* Introduce a new filter. No changes to functionality
 
 = 0.8.3 =
 * Versy small bugfix. Upgrade to make sure saving the options doesn't cause errors.
