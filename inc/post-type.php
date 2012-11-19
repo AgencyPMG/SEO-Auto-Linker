@@ -370,7 +370,7 @@ class SEO_Auto_Linker_Post_Type extends SEO_Auto_Linker_Base
                 <td>
                     <textarea class="widefat" name="<?php self::key('keywords'); ?>" id="<?php self::key('keywords'); ?>"><?php self::meta('keywords', 'textarea'); ?></textarea>
                     <p class="description">
-                        <?php _e('Comman separated. These are the terms you want to link.', 'seoal'); ?>
+                        <?php _e('Comma separated. These are the terms you want to link.', 'seoal'); ?>
                     </p>
                 </td>
             </tr>
