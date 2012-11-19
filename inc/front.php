@@ -215,7 +215,22 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
         $keywords = self::get_keywords($link);
         if(!$keywords)
             return false;
-        return sprintf('/(\b)(%s)(\b)/ui', implode('|', $keywords));
+
+        // Don't change these unless you know what you're doing. Really.
+        if(apply_filters('seoal_unicode_boundaries', false, $link))
+        {
+            $ob = '((?<!\pL))';
+            $cb = '((?!\pL))';
+        }
+        else
+        {
+            $ob = $cb = '(\b)';
+        }
+
+        $ob = apply_filters('seoal_opening_word_boundary', $ob, $link);
+        $cb = apply_filters('seoal_closing_word_boundary', $cb, $link);
+
+        return sprintf("/{$ob}(%s){$cb}/ui", implode('|', $keywords));
     }
 
     /*
