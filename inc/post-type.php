@@ -259,6 +259,7 @@ class SEO_Auto_Linker_Post_Type extends SEO_Auto_Linker_Base
             'times'      => array('absint'),
             'target'     => array('esc_attr'),
             'self_links' => 'checkbox',
+            'nofollow'   => 'checkbox',
         );
         foreach($map as $key => $escapers)
         {
@@ -359,6 +360,7 @@ class SEO_Auto_Linker_Post_Type extends SEO_Auto_Linker_Base
     {
         $target = self::get_meta('target');
         $self_links = self::get_meta('self_links', 'off');
+        $nofollow = self::get_meta('nofollow', 'off');
         ?>
         <table class="form-table">
             <tr>
@@ -429,6 +431,20 @@ class SEO_Auto_Linker_Post_Type extends SEO_Auto_Linker_Base
                            id="<?php self::key('target'); ?>"
                            value="on"
                            <?php checked($self_links, 'on'); ?> />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="<?php self::key('nofollow'); ?>">
+                        <?php _e('Nofollow This Link', 'seoal'); ?>
+                    </label>
+                </td>
+                <td>
+                    <input type="checkbox"
+                           name="<?php self::key('nofollow'); ?>"
+                           id="<?php self::key('nofollow'); ?>"
+                           value="on"
+                           <?php checked($nofollow, 'on'); ?> />
                 </td>
             </tr>
         </table>

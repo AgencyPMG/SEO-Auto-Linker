@@ -113,10 +113,16 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
             ) continue;
             
             $target = self::get_link_target($l);
+            $replace = sprintf(
+                '$1<a href="%1$s" title="$2" target="%2$s" %3$s>$2</a>$3',
+                esc_url($url),
+                esc_attr($target),
+                self::is_nofollow($l) ? 'rel="nofollow"' : ''
+            );
 
             $filtered = preg_replace(
                 $regex,
-                '$1<a href="' . esc_url( $url ) . '" title="$2" target="' . $target . '">$2</a>$3',
+                $replace,
                 $filtered,
                 absint($max)
             );
@@ -309,6 +315,22 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
         return apply_filters(
             'seoal_allow_self_links', 
             'on' == self::get_meta($link, 'self_links'),
+            $link
+        );
+    }
+
+    /**
+     * check whether or not a link is nofollowed.
+     *
+     * @since   0.85
+     * @access  protected
+     * @return  bool
+     */
+    protected static function is_nofollow($link)
+    {
+        return apply_filters(
+            'seoal_link_nofollow',
+            'on' == self::get_meta($link, 'nofollow'),
             $link
         );
     }
