@@ -254,19 +254,27 @@ class SEO_Auto_Linker_Post_Type extends SEO_Auto_Linker_Base
             return;
 
         $map = array(
-            'keywords' => array('strip_tags', 'esc_attr'),
-            'url'      => array('esc_url'),
-            'times'    => array('absint'),
-            'target'   => array('esc_attr')
+            'keywords'   => array('strip_tags', 'esc_attr'),
+            'url'        => array('esc_url'),
+            'times'      => array('absint'),
+            'target'     => array('esc_attr'),
+            'self_links' => 'checkbox',
         );
         foreach($map as $key => $escapers)
         {
             $key = self::get_key($key);
             if(isset($_POST[$key]) && $_POST[$key])
             {
-                $val = $_POST[$key];
-                foreach($escapers as $e)
-                    $val = call_user_func($e, $val);
+                if('checkbox' == $escapers)
+                {
+                    $val = 'on';
+                }
+                else
+                {
+                    $val = $_POST[$key];
+                    foreach($escapers as $e)
+                        $val = call_user_func($e, $val);
+                }
                 update_post_meta($post_id, $key, $val);
             }
             else
@@ -350,6 +358,7 @@ class SEO_Auto_Linker_Post_Type extends SEO_Auto_Linker_Base
     public static function keyword_cb($post)
     {
         $target = self::get_meta('target');
+        $self_links = self::get_meta('self_links', 'off');
         ?>
         <table class="form-table">
             <tr>
@@ -407,6 +416,21 @@ class SEO_Auto_Linker_Post_Type extends SEO_Auto_Linker_Base
                         <?php endforeach; ?>
                     </select>
                 </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="<?php self::key('self_links'); ?>">
+                        <?php _e('Allow Self Links?', 'seoal'); ?>
+                    </label>
+                </td>
+                <td>
+                    <input type="checkbox"
+                           name="<?php self::key('self_links'); ?>"
+                           id="<?php self::key('target'); ?>"
+                           value="on"
+                           <?php checked($self_links, 'on'); ?> />
+                </td>
+            </tr>
         </table>
         <?php
     }

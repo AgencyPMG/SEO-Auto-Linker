@@ -106,10 +106,14 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
             $regex = self::get_kw_regex($l);
             $url = self::get_link_url($l);
             $max = self::get_link_max($l);
-            if(!$regex || !$url || !$max)
-                continue;
+
+            if(
+                !$regex || !$url || !$max ||
+                ($url == self::$permalink && !self::self_links_allowed($l))
+            ) continue;
             
             $target = self::get_link_target($l);
+
             $filtered = preg_replace(
                 $regex,
                 '$1<a href="' . esc_url( $url ) . '" title="$2" target="' . $target . '">$2</a>$3',
@@ -291,6 +295,18 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
             $target = '_self';
         }
         return esc_attr($target);
+    }
+
+    /**
+     * Check whether or not a link allows a given post to have links to itself.
+     *
+     * @since   0.85
+     * @access  protected
+     * @return  bool
+     */
+    protected static function self_links_allowed($link)
+    {
+        return 'on' == self::get_meta($link, 'self_links');
     }
 
     /*
