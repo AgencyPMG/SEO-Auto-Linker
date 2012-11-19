@@ -306,7 +306,11 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
      */
     protected static function self_links_allowed($link)
     {
-        return 'on' == self::get_meta($link, 'self_links');
+        return apply_filters(
+            'seoal_allow_self_links', 
+            'on' == self::get_meta($link, 'self_links'),
+            $link
+        );
     }
 
     /*
