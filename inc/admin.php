@@ -47,14 +47,14 @@ class SEO_Auto_Linker_Admin extends SEO_Auto_Linker_Base
 
         add_settings_section(
             'word_boundary',
-            __('Word Boundary', 'seoal'),
+            __('Word Boundaries', 'seoal'),
             array(get_class(), 'boundary_section'),
             self::SETTING
         );
 
         add_settings_field(
             'seoal-boundary-field',
-            __('Use Alternate Word Boundaries?', 'seoal'),
+            __('Use Alternative Word Boundaries?', 'seoal'),
             array(get_class(), 'boundary_field'),
             self::SETTING,
             'word_boundary'
