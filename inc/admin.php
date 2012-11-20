@@ -153,7 +153,7 @@ class SEO_Auto_Linker_Admin extends SEO_Auto_Linker_Base
     public static function boundary_section()
     {
         echo '<p class="description">',
-            __("If you're having trouble with SEO Auto Linker Matching unicode ".
+            __("If you're having trouble with SEO Auto Linker matching unicode ".
                "characters and word boundaries, try checking the box below.", 'seoal'),
             '<p>';
     }
