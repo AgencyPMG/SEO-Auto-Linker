@@ -23,6 +23,15 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
      */
     private static $permalink;
 
+    /**
+     * Container for word boundaries.
+     *
+     * @since   0.9
+     * @access  private
+     * @var     array
+     */
+    private static $boundaries = array();
+
     /*
      * Adds actions and filters and such
      *
@@ -226,21 +235,14 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
         if(!$keywords)
             return false;
 
-        // Don't change these unless you know what you're doing. Really.
-        if(apply_filters('seoal_unicode_boundaries', false, $link))
-        {
-            $ob = '((?<!\pL))';
-            $cb = '((?!\pL))';
-        }
-        else
-        {
-            $ob = $cb = '(\b)';
-        }
+        list($ob, $cb) = self::get_boundaries($link);
 
-        $ob = apply_filters('seoal_opening_word_boundary', $ob, $link);
-        $cb = apply_filters('seoal_closing_word_boundary', $cb, $link);
-
-        return sprintf("/{$ob}(%s){$cb}/ui", implode('|', $keywords));
+        return sprintf(
+            '/(%s)(%s)(%s)/ui',
+            $ob,
+            implode('|', $keywords),
+            $cb
+        );
     }
 
     /*
@@ -400,6 +402,37 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
             array_values($arr),
             $content
         );
+    }
+
+    /**
+     * Get regex word boundaries.
+     *
+     * @since   0.9
+     * @access  protected
+     * @uses    get_option
+     * @return  array
+     */
+    public static function get_boundaries($link)
+    {
+        $opts = get_option(self::SETTING, array());
+
+        $alt_b = isset($opts['word_boundary']) && 'on' == $opts['word_boundary'];
+
+        if(apply_filters('seoal_unicode_boundaries', $alt_b, $link))
+        {
+            $ob = '(?<!\pL)'; // Negative look behind (anything that isn't a unicode letter)
+            $cb = '(?!\pL)'; // Negative look ahead (anything that isn't a unicode letter)
+        }
+        else
+        {
+            $ob = $cb = '\b';
+        }
+
+        // Don't change these unless you know what you're doing. Really.
+        $ob = apply_filters('seoal_opening_word_boundary', $ob, $link);
+        $cb = apply_filters('seoal_closing_word_boundary', $cb, $link);
+
+        return array($ob, $cb);
     }
 }
 
