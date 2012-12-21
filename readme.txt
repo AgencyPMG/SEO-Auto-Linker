@@ -4,7 +4,7 @@ Donate link: http://www.pwsausa.org/give.htm
 Tags: seo, links, internal links, automatic linking
 Requires at least: 3.2
 Tested up to: 3.5
-Stable tag: 0.8.2
+Stable tag: 0.9
 
 SEO Auto Linker allows you to automagically add links into your content. Great for internal linking!
 
@@ -70,6 +70,17 @@ Yes. Two ways:
 
 == Changelog ==
 
+= 0.9 =
+* Add support for nofollowing links
+* Add the option to use unicode word boundaries `((?<!\pL))` and `((?!\pL))`
+* Also adds a few new filters to force the use (or change) those word boundaries.
+
+= 0.8.4 =
+* Introduce the `seoal_only_single` filter to allow users to add links on archives, etc.
+
+= 0.8.3 =
+* Small bugfix on saving the options page. Killing a PHP warning.
+
 = 0.8.2 =
 * Adds a few filters. Nothing to be terribly excited about.
 
@@ -122,6 +133,16 @@ Yes. Two ways:
 * Support for automatic linking added
 
 == Upgrade Notice ==
+
+= 0.9 =
+* Upgrade if you need nofollow support
+* Or if you're having trouble with unicode + not matching words.
+
+= 0.8.4 =
+* Introduce a new filter. No changes to functionality
+
+= 0.8.3 =
+* Versy small bugfix. Upgrade to make sure saving the options doesn't cause errors.
 
 = 0.8.2 =
 * Adds a few additional filters see [the docs](https://github.com/AgencyPMG/SEO-Auto-Linker/wiki/Filters)

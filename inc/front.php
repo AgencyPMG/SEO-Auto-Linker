@@ -23,6 +23,15 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
      */
     private static $permalink;
 
+    /**
+     * Container for word boundaries.
+     *
+     * @since   0.9
+     * @access  private
+     * @var     array
+     */
+    private static $boundaries = array();
+
     /*
      * Adds actions and filters and such
      *
@@ -106,13 +115,23 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
             $regex = self::get_kw_regex($l);
             $url = self::get_link_url($l);
             $max = self::get_link_max($l);
-            if(!$regex || !$url || !$max)
-                continue;
+
+            if(
+                !$regex || !$url || !$max ||
+                ($url == self::$permalink && !self::self_links_allowed($l))
+            ) continue;
             
             $target = self::get_link_target($l);
+            $replace = sprintf(
+                '$1<a href="%1$s" title="$2" target="%2$s" %3$s>$2</a>$3',
+                esc_url($url),
+                esc_attr($target),
+                self::is_nofollow($l) ? 'rel="nofollow"' : ''
+            );
+
             $filtered = preg_replace(
                 $regex,
-                '$1<a href="' . esc_url( $url ) . '" title="$2" target="' . $target . '">$2</a>$3',
+                $replace,
                 $filtered,
                 absint($max)
             );
@@ -135,8 +154,10 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
     {
         $rv = true;
 
-        if(!is_singular() || !in_the_loop())
-            $rv = false;
+        if(
+            (!is_singular() && apply_filters('seoal_only_single', true)) ||
+            !in_the_loop()
+        ) $rv = false;
 
         if(strpos($post->post_content, '<!--nolinks-->') !== false)
             $rv = false;
@@ -213,7 +234,15 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
         $keywords = self::get_keywords($link);
         if(!$keywords)
             return false;
-        return sprintf('/(\b)(%s)(\b)/ui', implode('|', $keywords));
+
+        list($ob, $cb) = self::get_boundaries($link);
+
+        return sprintf(
+            '/(%s)(%s)(%s)/ui',
+            $ob,
+            implode('|', $keywords),
+            $cb
+        );
     }
 
     /*
@@ -274,6 +303,38 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
             $target = '_self';
         }
         return esc_attr($target);
+    }
+
+    /**
+     * Check whether or not a link allows a given post to have links to itself.
+     *
+     * @since   0.85
+     * @access  protected
+     * @return  bool
+     */
+    protected static function self_links_allowed($link)
+    {
+        return apply_filters(
+            'seoal_allow_self_links', 
+            'on' == self::get_meta($link, 'self_links'),
+            $link
+        );
+    }
+
+    /**
+     * check whether or not a link is nofollowed.
+     *
+     * @since   0.85
+     * @access  protected
+     * @return  bool
+     */
+    protected static function is_nofollow($link)
+    {
+        return apply_filters(
+            'seoal_link_nofollow',
+            'on' == self::get_meta($link, 'nofollow'),
+            $link
+        );
     }
 
     /*
@@ -341,6 +402,37 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
             array_values($arr),
             $content
         );
+    }
+
+    /**
+     * Get regex word boundaries.
+     *
+     * @since   0.9
+     * @access  protected
+     * @uses    get_option
+     * @return  array
+     */
+    public static function get_boundaries($link)
+    {
+        $opts = get_option(self::SETTING, array());
+
+        $alt_b = isset($opts['word_boundary']) && 'on' == $opts['word_boundary'];
+
+        if(apply_filters('seoal_unicode_boundaries', $alt_b, $link))
+        {
+            $ob = '(?<!\pL)'; // Negative look behind (anything that isn't a unicode letter)
+            $cb = '(?!\pL)'; // Negative look ahead (anything that isn't a unicode letter)
+        }
+        else
+        {
+            $ob = $cb = '\b';
+        }
+
+        // Don't change these unless you know what you're doing. Really.
+        $ob = apply_filters('seoal_opening_word_boundary', $ob, $link);
+        $cb = apply_filters('seoal_closing_word_boundary', $cb, $link);
+
+        return array($ob, $cb);
     }
 }
 

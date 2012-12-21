@@ -254,19 +254,28 @@ class SEO_Auto_Linker_Post_Type extends SEO_Auto_Linker_Base
             return;
 
         $map = array(
-            'keywords' => array('strip_tags', 'esc_attr'),
-            'url'      => array('esc_url'),
-            'times'    => array('absint'),
-            'target'   => array('esc_attr')
+            'keywords'   => array('strip_tags', 'esc_attr'),
+            'url'        => array('esc_url'),
+            'times'      => array('absint'),
+            'target'     => array('esc_attr'),
+            'self_links' => 'checkbox',
+            'nofollow'   => 'checkbox',
         );
         foreach($map as $key => $escapers)
         {
             $key = self::get_key($key);
             if(isset($_POST[$key]) && $_POST[$key])
             {
-                $val = $_POST[$key];
-                foreach($escapers as $e)
-                    $val = call_user_func($e, $val);
+                if('checkbox' == $escapers)
+                {
+                    $val = 'on';
+                }
+                else
+                {
+                    $val = $_POST[$key];
+                    foreach($escapers as $e)
+                        $val = call_user_func($e, $val);
+                }
                 update_post_meta($post_id, $key, $val);
             }
             else
@@ -350,6 +359,8 @@ class SEO_Auto_Linker_Post_Type extends SEO_Auto_Linker_Base
     public static function keyword_cb($post)
     {
         $target = self::get_meta('target');
+        $self_links = self::get_meta('self_links', 'off');
+        $nofollow = self::get_meta('nofollow', 'off');
         ?>
         <table class="form-table">
             <tr>
@@ -361,7 +372,7 @@ class SEO_Auto_Linker_Post_Type extends SEO_Auto_Linker_Base
                 <td>
                     <textarea class="widefat" name="<?php self::key('keywords'); ?>" id="<?php self::key('keywords'); ?>"><?php self::meta('keywords', 'textarea'); ?></textarea>
                     <p class="description">
-                        <?php _e('Comman separated. These are the terms you want to link.', 'seoal'); ?>
+                        <?php _e('Comma separated. These are the terms you want to link.', 'seoal'); ?>
                     </p>
                 </td>
             </tr>
@@ -407,6 +418,35 @@ class SEO_Auto_Linker_Post_Type extends SEO_Auto_Linker_Base
                         <?php endforeach; ?>
                     </select>
                 </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="<?php self::key('self_links'); ?>">
+                        <?php _e('Allow Self Links?', 'seoal'); ?>
+                    </label>
+                </td>
+                <td>
+                    <input type="checkbox"
+                           name="<?php self::key('self_links'); ?>"
+                           id="<?php self::key('target'); ?>"
+                           value="on"
+                           <?php checked($self_links, 'on'); ?> />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="<?php self::key('nofollow'); ?>">
+                        <?php _e('Nofollow This Link', 'seoal'); ?>
+                    </label>
+                </td>
+                <td>
+                    <input type="checkbox"
+                           name="<?php self::key('nofollow'); ?>"
+                           id="<?php self::key('nofollow'); ?>"
+                           value="on"
+                           <?php checked($nofollow, 'on'); ?> />
+                </td>
+            </tr>
         </table>
         <?php
     }
