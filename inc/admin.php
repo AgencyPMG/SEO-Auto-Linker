@@ -92,8 +92,10 @@ class SEO_Auto_Linker_Admin extends SEO_Auto_Linker_Base
             $in['blacklist'] : '';
         $lines = preg_split('/\r\n|\r|\n/', $blacklist);
         $out['blacklist'] = array_map('esc_url', $lines);
-        if ( $blacklist_max = apply_filters( 'seoal_blacklist_max', '__return_false' ) )
-            $out['blacklist'] = array_slice( $out['blacklist'], 0, (int)$blacklist_max );
+
+        if ($blacklist_max = apply_filters('seoal_blacklist_max', false)) {
+            $out['blacklist'] = array_slice($out['blacklist'], 0, (int)$blacklist_max);
+        }
 
         $out['word_boundary'] = !empty($in['word_boundary']) ? 'on' : 'off';
 
