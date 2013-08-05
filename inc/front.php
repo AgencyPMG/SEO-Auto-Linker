@@ -14,6 +14,11 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
     private static $links;
 
     /*
+     * Container to cache the links in so we don't have to query for the same post repeatedly 
+     */
+    private static $no_links_cache = array();
+
+    /*
      * Container for our options
      */
     private static $opts;
@@ -189,6 +194,11 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
             return;
         }
 
+        if ( isset( self::$no_links_cache[$post->ID] ) && true == self::$no_links_cache[$post->ID] ) {
+            self::$links = array();
+            return;
+        }
+
         $links = get_posts(array(
             'post_type'   => self::POST_TYPE,
             'numberposts' => apply_filters('seoal_number_links', -1),
@@ -210,6 +220,9 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
             ),
             'suppress_filters' => false,
         ));
+
+        if ( empty( $links ) )
+            self::$no_links_cache[$post->ID] = true;
 
         $rv = array();
         if($links)
