@@ -355,7 +355,7 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
      *
      * @since 0.7
      */
-    protected static function get_meta($post, $key)
+    protected static function get_meta($post, $key='')
     {
         $res = apply_filters('seoal_pre_get_meta', false, $key, $post);
         if($res !== false)
