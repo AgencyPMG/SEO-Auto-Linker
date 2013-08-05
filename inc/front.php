@@ -125,12 +125,14 @@ class SEO_Auto_Linker_Front extends SEO_Auto_Linker_Base
                 !$regex || !$url || !$max ||
                 ($url == self::$permalink && !self::self_links_allowed($l))
             ) continue;
-            
+
+            $cls = apply_filters('seoal_link_class', 'auto-link', $l);
             $target = self::get_link_target($l);
             $replace = sprintf(
-                '$1<a href="%1$s" title="$2" target="%2$s" %3$s>$2</a>$3',
+                '$1<a href="%1$s" title="$2" target="%2$s" %3$s %4$s>$2</a>$3',
                 esc_url($url),
                 esc_attr($target),
+                $cls ? 'class="' . esc_attr($cls) . '"' : '',
                 self::is_nofollow($l) ? 'rel="nofollow"' : ''
             );
 

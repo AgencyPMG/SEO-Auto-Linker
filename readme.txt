@@ -3,8 +3,8 @@ Contributors: chrisguitarguy, agencypmg
 Donate link: http://www.pwsausa.org/give.htm
 Tags: seo, links, internal links, automatic linking
 Requires at least: 3.2
-Tested up to: 3.5
-Stable tag: 0.9
+Tested up to: 3.5.1
+Stable tag: 0.9.1
 
 SEO Auto Linker allows you to automagically add links into your content. Great for internal linking!
 
@@ -70,6 +70,10 @@ Yes. Two ways:
 
 == Changelog ==
 
+= 0.9.1 =
+* Fixes a bug that caused the sitewide blacklist to not save
+* Add a css class to links (`auto-link`).
+
 = 0.9 =
 * Add support for nofollowing links
 * Add the option to use unicode word boundaries `((?<!\pL))` and `((?!\pL))`
@@ -133,6 +137,9 @@ Yes. Two ways:
 * Support for automatic linking added
 
 == Upgrade Notice ==
+
+= 0.9.1 =
+* Fixes the site wide blacklist saving issue.
 
 = 0.9 =
 * Upgrade if you need nofollow support
